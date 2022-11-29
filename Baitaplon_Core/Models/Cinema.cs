@@ -13,5 +13,8 @@ namespace Baitaplon_Core.Models
         public string Logo { get; set; }
         public string Ten { get; set; }
         public string ChiTiet { get; set; }
+
+        //Relationship
+        public List<Movies> Movies { get; set; }
     }
 }
