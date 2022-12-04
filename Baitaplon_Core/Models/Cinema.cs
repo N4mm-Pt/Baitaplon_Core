@@ -10,8 +10,11 @@ namespace Baitaplon_Core.Models
     {
         [Key]
         public int CinemaId { get; set; }
+        [Display(Name ="Logo rạp phim")]
         public string Logo { get; set; }
+        [Display(Name = "Tên rạp phim")]
         public string Ten { get; set; }
+        [Display(Name = "Chi tiết rạp phim")]
         public string ChiTiet { get; set; }
 
         //Relationship

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Movies>;
+
+@{ ViewData["Title"] = "Danh sách phim";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2" ">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.Anh) </th>
+                    <th>@Html.DisplayNameFor(model => model.Ten) </th>
+                    <th>@Html.DisplayNameFor(model => model.Chitiet) </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@item.Anh" alt="@item.Ten" style="max-width: 150px;" />
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Ten)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Chitiet)
+                        </td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

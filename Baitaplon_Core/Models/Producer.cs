@@ -10,8 +10,11 @@ namespace Baitaplon_Core.Models
     {
         [Key]
         public int ProducerId { get; set; }
+        [Display(Name ="Ảnh")]
         public string Anh { get; set; }
+        [Display(Name = "Họ tên")]
         public string HoTen { get; set; }
+        [Display(Name = "Tiểu sử")]
         public string TieuSu { get; set; }
         
         //Relationship

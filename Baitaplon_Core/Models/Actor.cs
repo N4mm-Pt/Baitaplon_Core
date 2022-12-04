@@ -10,8 +10,11 @@ namespace Baitaplon_Core.Models
     {
         [Key]
         public int ActorId { get; set; }
+        [Display(Name = "Ảnh")]
         public string Anh { get; set; }
+        [Display(Name = "Họ và tên")]
         public string HoTen { get; set; }
+        [Display(Name = "Tiểu sử")]
         public string TieuSu { get; set; }
 
         //Relationship
