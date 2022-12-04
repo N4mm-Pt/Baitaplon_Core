@@ -1,4 +1,5 @@
 using Baitaplon_Core.Data;
+using Baitaplon_Core.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,10 @@ namespace Baitaplon_Core
         {
             //DbContext
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+
+            //Service
+            services.AddScoped<IActorsService, ActorsService>();
+
 
             services.AddControllersWithViews();
         }

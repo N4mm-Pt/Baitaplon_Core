@@ -4,34 +4,69 @@
 }
 
 <div class="row">
-    <div class="col-md-8 offset-md-2" ">
-        <table class="table">
-            <thead>
-                <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.Anh) </th>
-                    <th>@Html.DisplayNameFor(model => model.Ten) </th>
-                    <th>@Html.DisplayNameFor(model => model.Chitiet) </th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="align-middle">
-                            <img class="rounded-circle" src="@item.Anh" alt="@item.Ten" style="max-width: 150px;" />
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.Ten)
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.Chitiet)
-                        </td>
-                        
-                    </tr>
-                }
-            </tbody>
-        </table>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.Ten
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-right" asp-action="Sửa" asp-route-id="@item.MoviesId"><i class="bi bi-pencil-square"></i></a>
+                                    }
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.Anh" width="100%" alt="@item.Ten">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@item.Chitiet</p>
+                            <p class="card-text"><b>Rạp: </b>@item.Cinema.Ten</p>
+                            <p class="card-text"><b>Danh mục: </b>@item.DanhMuc</p>
+                            <p class="card-text"><b>Ngày bắt đầu: </b>@item.NgayBatDau.ToString("dd MMM yy")</p>
+                            <p class="card-text"><b>Ngày kết thúc: </b>@item.NgayKetThuc.ToString("dd MMM yy")</p>
+                            <p class="card-text ">
+                                <b>Trạng thái: </b>
+                                @if (DateTime.Now >= item.NgayBatDau && DateTime.Now <= item.NgayKetThuc)
+                                {
+                                    <span class="badge bg-success text-white">Đang bán</span>
+                                }
+                                else if (DateTime.Now > item.NgayKetThuc)
+                                {
+                                    <span class="badge bg-danger text-white">Ngừng bán</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">Sắp mở bán</span>
+                                }
+                            </p>
 
-    </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.MoviesId">
+                                    <i class="bi bi-eye-fill"></i> Chi tiết
+                                </a>
+                                <a class="btn btn-success text-white @((DateTime.Now > item.NgayKetThuc) ? "disabled" : "")"
+                                   asp-controller="Orders"
+                                   asp-action="AddItemToShoppingCart"
+                                   asp-route-id="@item.MoviesId">
+                                    <i class="bi bi-cart-plus"></i> Thêm vào giỏ (Giá @item.Gia.ToString("c"))
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
